@@ -1,11 +1,14 @@
 const Course = require('../models/Course')
+const {mutipleToObject} = require('../../unti/moongose')
 class SiteController {
     async index(req,res,next) {
        
-            const courses = await Course.find({})
-                .then(courses => res.render('home',{
-                    courses
-                }))
+             await Course.find({})
+                .then(courses => {
+                   
+                    res.render('home',{
+                    courses: mutipleToObject(courses)});
+                    })
                 .catch(next)
         
     }
