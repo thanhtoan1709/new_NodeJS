@@ -17,7 +17,12 @@ class CoursesController {
     // POST courses/store
     
     store(req,res,next) {
-      res.json(req.body)
+    const formData = req.body;
+    const course = new Course(formData);
+    course.save()
+        .then(() => res.redirect('/'))
+        .catch(error => next(error));
+        
     }
 }
 module.exports =  new CoursesController;
